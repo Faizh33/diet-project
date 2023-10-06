@@ -1,0 +1,91 @@
+
+.navbar, .footer {
+    background-color: #DC9A7D;
+}
+
+.navbar-toggler, .nav-link, .nav-link:hover, .footer-link, .footer-link:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    align-items: center;
+}
+
+/* Style de la barre de navigation */
+.logo {
+    width: 150px;
+    height: 150px;
+}
+
+.navbar-list {
+    width: 50px;
+    height: 50px;
+}
+
+.nav-item-mobile {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-desktop {
+    margin: 0 auto;
+}
+
+.nav-item-desktop {
+    padding-right: 30px;
+    font-size: 20px;
+}
+
+/*Style du footer*/
+.footer {
+    text-align: center;
+}
+
+.footer-link-container {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.footer-item {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.notice {
+    color: white;
+    font-style: italic;
+}
+
+.desktop-notice {
+    font-style: italic;
+    display: none;
+}
+
+.mobile-notice {
+    font-style: italic;
+    text-align: center;
+}
+
+/* Règle de média query pour les écrans plus larges */
+@media screen and (min-width: 768px) {
+    .footer-link-container {
+        display: flex; 
+        flex-direction: row; 
+        align-items: center;
+        justify-content: center; 
+        margin-top: 0;
+    }
+
+    .footer-item {
+        margin: 40px;
+    }
+
+    .desktop-notice {
+        display: block;
+    }
+
+    .mobile-notice {
+        display: none;
+    }
+}

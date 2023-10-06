@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta description="">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <title>{% block title %}Bienvenue!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('styles') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <!-- Navbar version mobile -->
+        <nav class="navbar navbar-expand-md d-md-none">  
+            <img src="{{ asset('pictures/logo.png') }}" alt="Logo" class="logo" />
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNavbarContent">
+                <img src="{{ asset('svg/list.svg') }}" alt="List" class="navbar-list">
+            </button>
+            <div class="collapse navbar-collapse" id="mobileNavbarContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item nav-item-mobile">
+                        <a class="nav-link" href="">Accueil</a>
+                    </li>
+                    <li class="nav-item nav-item-mobile">
+                        <a class="nav-link" href="">Recettes</a>
+                    </li>
+                    <li class="nav-item nav-item-mobile">
+                        <a class="nav-link" href="">Contact</a>
+                    </li>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item nav-item-mobile">
+                            <a class="nav-link" href="">Connexion</a>
+                        </li>
+                    {% endif %}
+                    {% if app.user and 'ROLE_USER' in app.user.roles %}
+                        <li class="nav-item nav-item-mobile">
+                            <a class="nav-link" href="">Déconnexion</div>
+                        </li>
+                    {% endif %}
+                    {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item nav-item-mobile">
+                        <a class="nav-link" href="">Administrateur</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Navbar version desktop -->
+        <nav class="navbar navbar-expand-md d-none d-md-flex">
+            <img src="{{ asset('pictures/logo.png') }}" alt="Logo" class="logo" />
+            <ul class="navbar-nav navbar-desktop mr-auto">
+                <li class="nav-item nav-item-desktop">
+                    <a class="nav-link" href="">Accueil</a>
+                </li>
+                <li class="nav-item nav-item-desktop">
+                    <a class="nav-link" href="">Recettes</a>
+                </li>
+                <li class="nav-item nav-item-desktop">
+                    <a class="nav-link" href="">Contact</a>
+                </li>
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="">Connexion</a>
+                    </li>
+                {% endif %}
+                    {% if app.user and 'ROLE_USER' in app.user.roles %}
+                        <li class="nav-item nav-item-desktop">
+                            <a class="nav-link" href="">Déconnexion</div>
+                        </li>
+                    {% endif %}
+                {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="">Administrateur</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <!-- Contenu principal -->
+        <div class="content">
+            {% block body %}{% endblock %}
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-container">
+            <footer class="footer">
+                <div class="footer-link-container">
+                    <div class="footer-item">
+                        <a class="footer-link" href="">Contact</a>
+                    </div>
+                    <div class="footer-item">
+                        <a class="footer-link" href="">Politique de confidentialité</a>
+                    </div>
+                    <div class="footer-item">
+                        <a class="footer-link" href="">Mentions légales</a>
+                    </div>
+                </div>
+                <div class="notice">
+                    <div class="desktop-notice">© 2023 Diététicienne Nutritionniste. Site créé par Faizh33</div>
+                    <div class="mobile-notice">© 2023 Diététicienne Nutritionniste.</div>
+                    <div class="mobile-notice">Site créé par Faizh33</div>
+                </div>
+            </footer>
+        </div>
+        <script src="{{ asset('js/app.js') }}"></script>
+    </body>
+</html>
