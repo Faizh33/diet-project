@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
+@import url('https://fonts.cdnfonts.com/css/baloo-bhaina');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Reenie+Beanie&display=swap');
 
 .navbar, .footer {
     background-color: #DC9A7D;
@@ -5,9 +8,10 @@
 
 .navbar-toggler, .nav-link, .nav-link:hover, .footer-link, .footer-link:hover {
     color: white;
-    font-weight: bold;
+    font-weight: 500;
     text-decoration: none;
     align-items: center;
+    font-family: 'Baloo Bhaina', sans-serif;
 }
 
 /* Style de la barre de navigation */
@@ -55,6 +59,7 @@
 .notice {
     color: white;
     font-style: italic;
+    font-family: 'Baloo Bhaina', sans-serif;
 }
 
 .desktop-notice {
