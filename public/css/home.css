@@ -1,0 +1,82 @@
+/* Style photo et text d'accueil */
+.picture-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.picture {
+    width: 85%;
+}
+
+.home-title {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 75px;
+    text-align: center;
+    margin: 40px;
+}
+
+/* style de la partie A propos */
+.about-us-container {
+    width: 80%;
+    margin: auto;
+    background: #609A7D;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.diet-picture {
+    border: 10px solid white;
+}
+
+.about-us-title, .about-us-text {
+    font-family: Noto Sans, sans-serif;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .home-intro {
+        margin-bottom: 40px;
+    }
+
+    .home-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .about-us-container {
+        width: 100%;
+        padding-bottom: 40px;
+    }
+
+    .about-us-container.row {
+        display: flex;
+        align-items: center;
+    }
+
+    .services-container {
+        margin-bottom: 40px;
+    }
+}
+
+/* Style des services */
+.subtitle, .service-text {
+    text-align: center;
+    margin: auto;
+}
+
+.subtitle {
+    font-family: Baloo Bhaina, sans-serif;
+    font-weight: center;
+    padding-bottom: 15px;
+}
+
+.service-text {
+    width: 90%;
+    font-family: Noto Sans, sans-serif;
+    font-size: 20px;
+    padding-bottom: 30px;
+}
