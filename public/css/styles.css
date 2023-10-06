@@ -94,3 +94,36 @@
         display: none;
     }
 }
+
+/* Style des boutons */
+.button {
+    background: #F3F3F7;
+    width: 50%;
+    margin: auto;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.button-link {
+    color: #0C0920;
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 30px;
+}
+
+.button-link:hover {
+    text-decoration: none;
+    color: #0C0920;
+}
+
+/* Styles des titres */
+.title {
+    padding-top: 40px;
+    font-family: 'Baloo Bhaina', sans-serif;
+    color: #609A7D;
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 40px;
+}
