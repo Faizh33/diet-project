@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div class="home-body">
+    <div class="home-intro row">
+        <div class="picture-container col-md-6">
+            <img src="{{ asset('pictures/fruits.jpg') }}" alt="fruits" class="picture" />
+        </div>
+        <h1 class="home-title col-md-5">J'adore manger, et vous?</h1>
+    </div>
+    <div class="about-us-container row">
+        <div class="picture-container col-md-6">
+            <img src="{{ asset('pictures/dieteticienne.jpg') }}" alt="fruits" class="picture diet-picture">
+        </div>
+        <div class="about-us-text-container col-md-5">
+            <h2 class="about-us-title">DIETETICIENNE - NUTRITIONNISTE</h2>
+            <p class="about-us-text">Bonjour et bienvenue, je m'appelle Sandrine Coupart, diplômée de l'académie de Caen. Je consulte du lundi au samedi au cabinet.</p>
+            <div class="button contact-button">
+                <a href="" class="button-link">Contactez-moi</a>
+            </div>
+        </div>
+    </div>
+    <h2 class="title">Mes services</h2>
+    <div class="services-container row">
+        <div class="service col-md-6 col-lg-4">
+            <h3 class="subtitle">Conseils nutritionnels</h3>
+            <p class="service-text">Topping soufflé cupcake lollipop gummies gingerbread. Cake liquorice cheesecake ice cream topping. Donut chocolate gummies pudding sweet roll apple pie toffee sweet. Powder macaroon bonbon brownie marshmallow cookie sweet roll pudding gingerbread.</p>
+        </div>
+        <div class="service col-md-6 col-lg-4">
+            <h3 class="subtitle">Menu personnalisé</h3>
+            <p class="service-text">Topping soufflé cupcake lollipop gummies gingerbread. Cake liquorice cheesecake ice cream topping. Donut chocolate gummies pudding sweet roll apple pie toffee sweet. Powder macaroon bonbon brownie marshmallow cookie sweet roll pudding gingerbread.</p>
+        </div>
+        <div class="service col-md-6 col-lg-4">
+            <h3 class="subtitle">Suivi régulier</h3>
+            <p class="service-text">Topping soufflé cupcake lollipop gummies gingerbread. Cake liquorice cheesecake ice cream topping. Donut chocolate gummies pudding sweet roll apple pie toffee sweet. Powder macaroon bonbon brownie marshmallow cookie sweet roll pudding gingerbread.</p>
+        </div>
+    </div>
+{% endblock %}
