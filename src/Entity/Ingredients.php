@@ -2,27 +2,29 @@
 
 namespace App\Entity;
 
-use App\Repository\StepsRepository;
+use App\Repository\IngredientsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: StepsRepository::class)]
-class Steps
+#[ORM\Entity(repositoryClass: IngredientsRepository::class)]
+class Ingredients
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    #[ORM\Column(length: 150)]
+    private ?string $name = null;
 
-    #[ORM\Column]
-    private ?int $orderNumber = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $quantity = null;
 
-    #[ORM\OneToMany(mappedBy: 'steps', targetEntity: Recipes::class)]
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $unity = null;
+
+    #[ORM\OneToMany(mappedBy: 'ingredients', targetEntity: Recipes::class)]
     private Collection $recipes;
 
     public function __construct()
@@ -35,26 +37,38 @@ class Steps
         return $this->id;
     }
 
-    public function getDescription(): ?string
+    public function getName(): ?string
     {
-        return $this->description;
+        return $this->name;
     }
 
-    public function setDescription(string $description): static
+    public function setName(string $name): static
     {
-        $this->description = $description;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getOrderNumber(): ?int
+    public function getQuantity(): ?int
     {
-        return $this->orderNumber;
+        return $this->quantity;
     }
 
-    public function setOrderNumber(int $orderNumber): static
+    public function setQuantity(?int $quantity): static
     {
-        $this->orderNumber = $orderNumber;
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getUnity(): ?string
+    {
+        return $this->unity;
+    }
+
+    public function setUnity(?string $unity): static
+    {
+        $this->unity = $unity;
 
         return $this;
     }
@@ -71,7 +85,7 @@ class Steps
     {
         if (!$this->recipes->contains($recipe)) {
             $this->recipes->add($recipe);
-            $recipe->setSteps($this);
+            $recipe->setIngredients($this);
         }
 
         return $this;
@@ -81,8 +95,8 @@ class Steps
     {
         if ($this->recipes->removeElement($recipe)) {
             // set the owning side to null (unless already changed)
-            if ($recipe->getSteps() === $this) {
-                $recipe->setSteps(null);
+            if ($recipe->getIngredients() === $this) {
+                $recipe->setIngredients(null);
             }
         }
 
