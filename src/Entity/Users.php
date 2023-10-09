@@ -32,14 +32,14 @@ class Users
     private ?Reviews $reviews = null;
 
     #[ORM\JoinTable(name: 'user_diets')]
-    #[ORM\JoinColumn(name: 'users_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'diets_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'users_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'diets_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Diets::class, inversedBy: 'users')]
     private Collection $diets;
 
     #[ORM\JoinTable(name: 'user_allergens')]
-    #[ORM\JoinColumn(name: 'users_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'allergens_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'users_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'allergens_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Allergens::class, inversedBy: 'users')]
     private Collection $allergens;
 

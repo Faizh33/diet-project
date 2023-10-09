@@ -19,14 +19,14 @@ class Allergens
     private ?string $name = null;
 
     #[ORM\JoinTable(name: 'user_allergens')]
-    #[ORM\JoinColumn(name: 'allergens_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'users_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'allergens_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'users_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'allergens')]
     private Collection $users;
 
     #[ORM\JoinTable(name: 'allergen_recipes')]
-    #[ORM\JoinColumn(name: 'allergens_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'recipes_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'allergens_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'recipes_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Recipes::class, inversedBy: 'allergens')]
     private Collection $recipes;
 
@@ -51,6 +51,11 @@ class Allergens
         $this->name = $name;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**

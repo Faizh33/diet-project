@@ -44,14 +44,14 @@ class Recipes
     private ?Reviews $reviews = null;
 
     #[ORM\JoinTable(name: 'diet_recipes')]
-    #[ORM\JoinColumn(name: 'recipes_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'diets_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'recipes_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'diets_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Diets::class, mappedBy: 'recipes')]
     private Collection $diets;
 
     #[ORM\JoinTable(name: 'allergen_recipes')]
-    #[ORM\JoinColumn(name: 'recipes_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'allergens_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'recipes_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'allergens_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Allergens::class, mappedBy: 'recipes')]
     private Collection $allergens;
 

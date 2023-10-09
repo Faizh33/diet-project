@@ -19,14 +19,14 @@ class Diets
     private ?string $name = null;
 
     #[ORM\JoinTable(name: 'user_diets')]
-    #[ORM\JoinColumn(name: 'diets_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'users_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'diets_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'users_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'diets')]
     private Collection $users;
 
     #[ORM\JoinTable(name: 'diet_recipes')]
-    #[ORM\JoinColumn(name: 'diets_id', referencedColumnName: 'id', unique: true)]
-    #[ORM\InverseJoinColumn(name: 'recipes_id', referencedColumnName: 'id', unique: true)]
+    #[ORM\JoinColumn(name: 'diets_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'recipes_id', referencedColumnName: 'id')]
     #[ORM\ManyToMany(targetEntity: Recipes::class, inversedBy: 'diets')]
     private Collection $recipes;
 
@@ -51,6 +51,11 @@ class Diets
         $this->name = $name;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**
