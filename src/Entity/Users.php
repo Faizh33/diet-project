@@ -47,6 +47,7 @@ class Users
     {
         $this->diets = new ArrayCollection();
         $this->allergens = new ArrayCollection();
+        $this->role = ['ROLE_USER'];
     }
 
     public function getId(): ?int
