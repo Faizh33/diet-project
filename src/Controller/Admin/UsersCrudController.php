@@ -26,13 +26,32 @@ class UsersCrudController extends AbstractCrudController
             AssociationField::new('diets')
                 ->setLabel('Régimes')
                 ->setFormTypeOptions([
-                'multiple' => true,
-                ]),
+                    'multiple' => true,
+                    'by_reference' => false,
+                ])
+                ->formatValue(function ($value, $entity) {
+                    // Utilisez la méthode personnalisée pour obtenir le nom du régime
+                    $diets = $entity->getDiets();
+                    $dietNames = [];
+                    foreach ($diets as $diet) {
+                        $dietNames[] = $diet->getName();
+                    }
+                    return implode(', ', $dietNames);
+                }),
             AssociationField::new('allergens')
                 ->setLabel('Allergènes')
                 ->setFormTypeOptions([
                     'multiple' => true,
-                ]),
+                    'by_reference' => false,
+                ])
+                ->formatValue(function ($value, $entity) {
+                    $allergens = $entity->getAllergens();
+                    $allergenNames = [];
+                    foreach ($allergens as $allergen) {
+                        $allergenNames[] = $allergen->getName();
+                    }
+                    return implode(', ', $allergenNames);
+                }),
         ];
     }
 }
