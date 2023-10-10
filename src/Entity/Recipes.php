@@ -34,7 +34,7 @@ class Recipes
     #[ORM\Column(type: Types::TEXT, length: 255)]
     private ?string $pictureName;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredients::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Ingredients::class, cascade: ['persist'])]
     private Collection $ingredients;
 
     #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Steps::class, cascade: ['persist'])]
