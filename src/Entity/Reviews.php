@@ -25,11 +25,13 @@ class Reviews
     #[ORM\Column]
     private ?int $rate = null;
 
-    #[ORM\OneToMany(mappedBy: 'reviews', targetEntity: Users::class)]
-    private Collection $users;
+    #[ORM\ManyToOne(targetEntity: Recipes::class, inversedBy: 'steps')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private ?Recipes $recipes = null;
 
-    #[ORM\OneToMany(mappedBy: 'reviews', targetEntity: Recipes::class)]
-    private Collection $recipes;
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'steps')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private ?Users $users = null;
 
     public function __construct()
     {
@@ -78,62 +80,26 @@ class Reviews
         return $this;
     }
 
-    /**
-     * @return Collection<int, Users>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(Users $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setReviews($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(Users $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getReviews() === $this) {
-                $user->setReviews(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Recipes>
-     */
-    public function getRecipes(): Collection
+    public function getRecipes(): ?Recipes
     {
         return $this->recipes;
     }
 
-    public function addRecipe(Recipes $recipe): static
+    public function setRecipes(?Recipes $recipe): static
     {
-        if (!$this->recipes->contains($recipe)) {
-            $this->recipes->add($recipe);
-            $recipe->setReviews($this);
-        }
+        $this->recipes = $recipe;
 
         return $this;
     }
 
-    public function removeRecipe(Recipes $recipe): static
+    public function getUsers(): ?Users
     {
-        if ($this->recipes->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
-            if ($recipe->getReviews() === $this) {
-                $recipe->setReviews(null);
-            }
-        }
+        return $this->users;
+    }
+
+    public function setUsers(?Users $user): static
+    {
+        $this->users = $user;
 
         return $this;
     }

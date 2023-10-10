@@ -31,17 +31,17 @@ class Recipes
     #[ORM\Column(nullable: true)]
     private ?int $cookingTime = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
-    private ?Ingredients $ingredients = null;
+    #[ORM\Column(type: Types::TEXT, length: 255)]
+    private ?string $pictureName;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
-    private ?Steps $steps = null;
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredients::class, cascade: ['persist'])]
+    private Collection $ingredients;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    #[ORM\JoinColumn(onDelete: "CASCADE")]
-    private ?Reviews $reviews = null;
+    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Steps::class, cascade: ['persist'])]
+    private Collection $steps;
+
+    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Reviews::class, cascade: ['persist'])]
+    private Collection $reviews;
 
     #[ORM\JoinTable(name: 'diet_recipes')]
     #[ORM\JoinColumn(name: 'recipes_id', referencedColumnName: 'id')]
@@ -59,6 +59,9 @@ class Recipes
     {
         $this->diets = new ArrayCollection();
         $this->allergens = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
+        $this->steps = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,41 +129,99 @@ class Recipes
         return $this;
     }
 
-    public function getIngredients(): ?Ingredients
+    public function getpictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setpictureName(?string $pictureName): static
+    {
+        $this->pictureName = $pictureName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredients>
+     */
+    public function getIngredients(): Collection
     {
         return $this->ingredients;
     }
-
-    public function setIngredients(?Ingredients $ingredients): static
+    
+    public function addIngredient(Ingredients $ingredient): static
     {
-        $this->ingredients = $ingredients;
-
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients[] = $ingredient;
+            $ingredient->setRecipes($this);
+        }
+    
         return $this;
     }
-
-    public function getSteps(): ?Steps
+    
+    public function removeIngredient(Ingredients $ingredient): static
+    {
+        if ($this->ingredients->removeElement($ingredient)) {
+            $ingredient->setRecipes(null);
+        }
+    
+        return $this;
+    }
+    
+    /**
+     * @return Collection<int, Steps>
+     */
+    public function getSteps(): Collection
     {
         return $this->steps;
     }
-
-    public function setSteps(?Steps $steps): static
+    
+    public function addStep(Steps $step): static
     {
-        $this->steps = $steps;
-
+        if (!$this->steps->contains($step)) {
+            $this->steps[] = $step;
+            $step->setRecipes($this);
+        }
+    
+        return $this;
+    }
+    
+    public function removeStep(Steps $step): static
+    {
+        if ($this->steps->removeElement($step)) {
+            $step->setRecipes(null);
+        }
+    
         return $this;
     }
 
-    public function getReviews(): ?Reviews
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getReviews(): Collection
     {
         return $this->reviews;
     }
-
-    public function setReviews(?Reviews $reviews): static
+    
+    public function addReview(Reviews $review): static
     {
-        $this->reviews = $reviews;
-
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setRecipes($this);
+        }
+    
         return $this;
     }
+    
+    public function removeReview(Reviews $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            $review->setRecipes(null);
+        }
+    
+        return $this;
+    }
+
 
     /**
      * @return Collection<int, Diets>

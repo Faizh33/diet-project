@@ -22,13 +22,9 @@ class Steps
     #[ORM\Column]
     private ?int $orderNumber = null;
 
-    #[ORM\OneToMany(mappedBy: 'steps', targetEntity: Recipes::class)]
-    private Collection $recipes;
-
-    public function __construct()
-    {
-        $this->recipes = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: Recipes::class, inversedBy: 'steps')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private ?Recipes $recipes = null;
 
     public function getId(): ?int
     {
@@ -59,32 +55,14 @@ class Steps
         return $this;
     }
 
-    /**
-     * @return Collection<int, Recipes>
-     */
-    public function getRecipes(): Collection
+    public function getRecipes(): ?Recipes
     {
         return $this->recipes;
     }
 
-    public function addRecipe(Recipes $recipe): static
+    public function setRecipes(?Recipes $recipe): static
     {
-        if (!$this->recipes->contains($recipe)) {
-            $this->recipes->add($recipe);
-            $recipe->setSteps($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecipe(Recipes $recipe): static
-    {
-        if ($this->recipes->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
-            if ($recipe->getSteps() === $this) {
-                $recipe->setSteps(null);
-            }
-        }
+        $this->recipes = $recipe;
 
         return $this;
     }

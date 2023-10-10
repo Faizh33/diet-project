@@ -27,9 +27,8 @@ class Users
     #[ORM\Column]
     private array $role = [];
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(onDelete: "CASCADE")]
-    private ?Reviews $reviews = null;
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Reviews::class, cascade: ['persist'])]
+    private Collection $reviews;
 
     #[ORM\JoinTable(name: 'user_diets')]
     #[ORM\JoinColumn(name: 'users_id', referencedColumnName: 'id')]
@@ -103,15 +102,30 @@ class Users
         return $this;
     }
 
-    public function getReviews(): ?Reviews
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getReviews(): Collection
     {
         return $this->reviews;
     }
-
-    public function setReviews(?Reviews $reviews): static
+    
+    public function addReview(Reviews $review): static
     {
-        $this->reviews = $reviews;
-
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setUsers($this);
+        }
+    
+        return $this;
+    }
+    
+    public function removeReview(Reviews $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            $review->setUsers(null);
+        }
+    
         return $this;
     }
 
