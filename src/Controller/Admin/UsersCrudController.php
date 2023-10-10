@@ -30,7 +30,6 @@ class UsersCrudController extends AbstractCrudController
                     'by_reference' => false,
                 ])
                 ->formatValue(function ($value, $entity) {
-                    // Utilisez la méthode personnalisée pour obtenir le nom du régime
                     $diets = $entity->getDiets();
                     $dietNames = [];
                     foreach ($diets as $diet) {
