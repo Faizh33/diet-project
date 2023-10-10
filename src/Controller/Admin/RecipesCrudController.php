@@ -6,11 +6,13 @@ use App\Entity\Recipes;
 use App\Form\StepsType;
 use App\Form\IngredientsType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Symfony\Component\Validator\Constraints\File;
 
 class RecipesCrudController extends AbstractCrudController
 {
@@ -24,16 +26,44 @@ class RecipesCrudController extends AbstractCrudController
         return [
             TextField::new('title')
             ->setLabel('Nom de la recette'),
-            TextEditorField::new('description'),
+            ImageField::new('pictureName')
+            ->setLabel('Image')
+            ->setBasePath('pictures/')
+            ->setUploadDir('public/pictures')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->setHelp('Formats de fichiers acceptés : JPG, PNG.')
+            ->setFormTypeOptions([
+                'allow_delete' => false,
+            ])
+            ->setCustomOption('constraints', [
+                new File([
+                    'maxSize' => '3072k',
+                    'mimeTypes' => [
+                        'image/jpeg',
+                        'image/png',
+                    ],
+                    'mimeTypesMessage' => 'Merci de télécharger une image valide (JPG ou PNG).',
+                ])
+            ]),
+            TextField::new('pictureName')
+            ->hideOnForm()
+            ->hideOnIndex()
+            ->setLabel('Image de la recette'),
+            TextEditorField::new('description')
+                ->onlyOnForms(),
             IntegerField::new('preparationTime')
-            ->setLabel('Temps de préparation en minutes'),
+            ->setLabel('Temps de préparation (en mn)')
+            ->onlyOnForms(),
             IntegerField::new('breakTime')
-            ->setLabel('Temps de repos en minutes'),
+            ->setLabel('Temps de repos (en mn)')
+            ->onlyOnForms(),
             IntegerField::new('cookingTime')
-            ->setLabel('Temps de cuisson en minutes'),
+            ->setLabel('Temps de cuisson (en mn)')
+            ->onlyOnForms(),
             CollectionField::new('ingredients')
                 ->setEntryType(IngredientsType::class)
                 ->setLabel('Ingrédients')
+                ->onlyOnForms()
                 ->setFormTypeOptions([
                     'allow_add' => true,
                     'by_reference' => false,
@@ -42,15 +72,34 @@ class RecipesCrudController extends AbstractCrudController
             ->setLabel('Régimes concernés')
             ->setFormTypeOptions([
                 'multiple' => true,
-            ]),
+                'by_reference' => false,
+            ])
+            ->formatValue(function ($value, $entity) {
+                $diets = $entity->getDiets();
+                $dietNames = [];
+                foreach ($diets as $diet) {
+                    $dietNames[] = $diet->getName();
+                }
+                return implode(', ', $dietNames);
+            }),
             AssociationField::new('allergens')
             ->setLabel('Allergènes présents')
             ->setFormTypeOptions([
                 'multiple' => true,
-            ]),
+                'by_reference' => false,
+            ])
+            ->formatValue(function ($value, $entity) {
+                $allergens = $entity->getAllergens();
+                $allergenNames = [];
+                foreach ($allergens as $allergen) {
+                    $allergenNames[] = $allergen->getName();
+                }
+                return implode(', ', $allergenNames);
+            }),
             CollectionField::new('steps')
             ->setEntryType(StepsType::class)
             ->setLabel('Étapes')
+            ->onlyOnForms()
             ->setFormTypeOptions([
                 'allow_add' => true,
                 'by_reference' => false,
