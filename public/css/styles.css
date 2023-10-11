@@ -128,6 +128,35 @@
     padding-bottom: 40px;
 }
 
+/* Style des formulaires */
+.form {
+    margin: 0 auto;
+    background-color: #609A7D;
+    padding: 30px;
+    border-radius: 50px;
+  }
+  
+  .label, .box-title {
+    color: white;
+    font-weight: bold;
+  }
+  
+  input[type="text"], textarea {
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 50px;
+  }
+  
+  .form-button {
+    margin: auto;
+    font-family: 'Reenie Beanie', cursive;
+  }
+
+/* Police des textes */
+.text {
+    font-family:Noto Sans, sans-serif;
+}
+
 /* Correction de style injecté par bootstrap */
 .row {
     margin-right: 0 !important;
