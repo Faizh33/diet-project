@@ -30,7 +30,6 @@
 }
 
 .about-us-title, .about-us-text {
-    font-family: Noto Sans, sans-serif;
     color: white;
     font-weight: bold;
     text-align: center;
@@ -76,7 +75,6 @@
 
 .service-text {
     width: 90%;
-    font-family: Noto Sans, sans-serif;
     font-size: 20px;
     padding-bottom: 30px;
 }
