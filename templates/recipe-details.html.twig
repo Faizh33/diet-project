@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/recipe-details.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="title">{{ recipe.title }}</h1>
+    <div class="container">
+        <div class="recipe-container" style="display: inline-block; width: 80%;">
+            <div class="image-container">
+                <img src="{{ asset('pictures/' ~ recipe.pictureName) }}" alt="Photo de la recette {{ recipe.title }}" class="recipe-picture" />
+            </div>
+            <p class="recipe-introduction">{{ recipe.description|raw }}</p>
+            <p><span class="text-title">Temps de préparation:</span> 
+            {{ recipe.preparationTime is null ? '0' : recipe.preparationTime }} minutes
+            </p>
+            <p><span class="text-title">Temps de repos:</span>
+            {{ recipe.breakTime is null ? '0' : recipe.breakTime }} minutes
+            </p>
+            <p><span class="text-title">Temps de cuisson:</span>
+            {{ recipe.cookingTime  is null ? '0' : recipe.cookingTime}} minutes
+            </p>
+            <div class="list-ingredients-container">
+                <p class="text-title">Ingredients</p>  
+                <ul class="list-ingredients">
+                    {% for ingredient in recipe.getIngredients() %}
+                        <li><b>{{ ingredient.name }} :</b> {{ ingredient.quantity }} {{ ingredient.unity }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="steps">
+                <p class="text-title">Étapes</p>
+                {% for step in sortedSteps %}
+                    <p><b>Étape {{ step.orderNumber }} </b>  {{ step.description }}</li>
+                {% endfor %}
+                </p>
+            </div>
+            <p class="text-title">Recette adaptée pour les régimes</p>
+            <ul>
+                {% for diet in recipe.getDiets() %}
+                    <li>{{ diet.name }}</li>
+                {% endfor %}
+            </ul>
+            <p class="text-title">Liste des allergènes</p>
+            <ul>
+                {% for allergen in recipe.getAllergens() %}
+                    <li>{{ allergen.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <h2 class="title">Vos avis</h2>
+    <div class="review-container">
+        
+    </div>
+{% endblock %}
