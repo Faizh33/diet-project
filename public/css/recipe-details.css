@@ -1,0 +1,29 @@
+.container  {
+    display: flex;
+    justify-content: center;
+}
+
+.recipe-introduction {
+    margin: 50px;
+}
+
+.text-title {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #609A7D;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.recipe-picture {
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+    .recipe-picture {
+        width: 50%;
+    }
+}
