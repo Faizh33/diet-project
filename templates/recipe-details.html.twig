@@ -18,47 +18,92 @@
             <div class="image-container">
                 <img src="{{ asset('pictures/' ~ recipe.pictureName) }}" alt="Photo de la recette {{ recipe.title }}" class="recipe-picture" />
             </div>
-            <p class="recipe-introduction">{{ recipe.description|raw }}</p>
-            <p><span class="text-title">Temps de préparation:</span> 
+            <p class="recipe-introduction text">{{ recipe.description|raw }}</p>
+            <p class="text"><span class="text-title">Temps de préparation:</span> 
             {{ recipe.preparationTime is null ? '0' : recipe.preparationTime }} minutes
             </p>
-            <p><span class="text-title">Temps de repos:</span>
+            <p class="text"><span class="text-title">Temps de repos:</span>
             {{ recipe.breakTime is null ? '0' : recipe.breakTime }} minutes
             </p>
-            <p><span class="text-title">Temps de cuisson:</span>
+            <p class="text"><span class="text-title">Temps de cuisson:</span>
             {{ recipe.cookingTime  is null ? '0' : recipe.cookingTime}} minutes
             </p>
             <div class="list-ingredients-container">
-                <p class="text-title">Ingredients</p>  
+                <p class="text-title text">Ingredients</p>  
                 <ul class="list-ingredients">
                     {% for ingredient in recipe.getIngredients() %}
-                        <li><b>{{ ingredient.name }} :</b> {{ ingredient.quantity }} {{ ingredient.unity }}</li>
+                        <li class="text"><b>{{ ingredient.name }} :</b> {{ ingredient.quantity }} {{ ingredient.unity }}</li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="steps">
-                <p class="text-title">Étapes</p>
+                <p class="text-title text">Étapes</p>
                 {% for step in sortedSteps %}
-                    <p><b>Étape {{ step.orderNumber }} </b>  {{ step.description }}</li>
+                    <p class="text"><b>Étape {{ step.orderNumber }} </b>  {{ step.description }}</li>
                 {% endfor %}
                 </p>
             </div>
-            <p class="text-title">Recette adaptée pour les régimes</p>
+            <p class="text-title text">Recette adaptée pour les régimes</p>
             <ul>
                 {% for diet in recipe.getDiets() %}
-                    <li>{{ diet.name }}</li>
+                    <li class="text">{{ diet.name }}</li>
                 {% endfor %}
             </ul>
-            <p class="text-title">Liste des allergènes</p>
+            <p class="text-title text">Liste des allergènes</p>
             <ul>
                 {% for allergen in recipe.getAllergens() %}
-                    <li>{{ allergen.name }}</li>
+                    <li class="text">{{ allergen.name }}</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
     <h2 class="title">Vos avis</h2>
+    <div class="row">
+        {% for review in reviews %}
+            <div class="col-lg-4 col-md-6 col-12 review-item">
+                <div class="review-container">
+                    <div class="rate">
+                        {% for i in 1..5 %}
+                            {% if i <= review.rate %}
+                                <span class="star yellow-star">★</span>
+                            {% else %}
+                                <span class="star">☆</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p class="review-text text">{{ review.comment }}</p>
+                    <p class="review-name text">{{ review.name }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <div class="review-container">
-        
+        {% if app.user is not null %}
+        {% set placeholderText = 'Bonjour ' ~ app.user.firstName ~ ' ' ~ app.user.lastName %}
+
+        {{ form_start(form, {'attr': {'id':'review-form', 'class': 'form review-form'}}) }}
+        {{ form_widget(form.name, {'attr': {'id': 'name', 'name': 'name', 'required': 'required', 'placeholder' : '{{ placeholderText }}'}}) }}
+        {{ form_label(form.comment, 'Donnez-moi votre avis', {'label_attr': {'class': 'label text'}}) }}
+        {{ form_widget(form.comment, {'attr': {'id': 'comment', 'rows': '5', 'cols': '33'}}) }}
+
+        <p class="label">Note</p>
+        <div class="rating-form-container"  id="star-rating">
+            <div class="rating">
+                <input type="radio" id="star1" name="rating" value="5" />
+                <label for="star1"></label>
+                <input type="radio" id="star2" name="rating" value="4" />
+                <label for="star2"></label>
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label for="star3"></label>
+                <input type="radio" id="star4" name="rating" value="2" />
+                <label for="star4"></label>
+                <input type="radio" id="star5" name="rating" value="1" />
+                <label for="star5"></label>
+            </div>
+        </div>
+        <input type="submit" class="button form-button" value="Envoyer">
+        {{ form_end(form) }}
+        {% endif %}
+        <div class="error-message text" style="display: none;">Veuillez sélectionner une note.</div>
     </div>
 {% endblock %}
