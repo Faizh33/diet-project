@@ -127,3 +127,9 @@
     font-size: 40px;
     padding-bottom: 40px;
 }
+
+/* Correction de style injecté par bootstrap */
+.row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
