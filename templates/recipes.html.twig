@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/recipes.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="title">Mes recettes</h1>
+    <p class="introduction-text">Bienvenue dans notre collection de recettes, où la gastronomie se marie à la santé et à la diversité des goûts. Nous vous proposons une sélection exquise de plats, soigneusement élaborés pour satisfaire les papilles les plus exigeantes, tout en tenant compte des besoins spécifiques de chacun. Que vous cherchiez des recettes légères et équilibrées, des options végétariennes ou des créations gourmandes pour des occasions spéciales, vous trouverez ici l'inspiration pour chaque repas. Explorez notre éventail de saveurs, découvrez de nouvelles idées culinaires et régalez-vous tout en prenant soin de votre bien-être. Bon appétit !</p>
+    <div class="row">
+        {% for recipe in pagination %}
+        <div class="recipe-container col-md-6 col-lg-4">
+            <a href="{{ path('recipes-description', { 'id': recipe.id }) }}" class="recipe-link">
+                <img src="{{ asset('pictures/' ~ recipe.pictureName) }}" alt="Photo de la recette" class="recipe-picture" />
+                <h2 class="recipe-title">{{ recipe.title }}</h2>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
