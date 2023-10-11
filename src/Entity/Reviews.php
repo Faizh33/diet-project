@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ReviewsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,12 +30,6 @@ class Reviews
     #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'steps')]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Users $users = null;
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-        $this->recipes = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
