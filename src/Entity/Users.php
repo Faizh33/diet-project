@@ -24,8 +24,11 @@ class Users
     #[ORM\Column(length: 120)]
     private ?string $userName = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $password = null;    
+
     #[ORM\Column]
-    private array $role = [];
+    private array $role = ['ROLE_USER'];
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Reviews::class, cascade: ['persist'])]
     private Collection $reviews;
@@ -46,7 +49,6 @@ class Users
     {
         $this->diets = new ArrayCollection();
         $this->allergens = new ArrayCollection();
-        $this->role = ['ROLE_USER'];
     }
 
     public function getId(): ?int
@@ -86,6 +88,18 @@ class Users
     public function setUserName(string $userName): static
     {
         $this->userName = $userName;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
 
         return $this;
     }
