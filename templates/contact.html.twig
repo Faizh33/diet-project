@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="contact-body">
+        <h1 class="title">Contact</h1>
+        <div class="contact-container">
+            <div class="contact-container-item">
+                <p class="contact-subtitle text">Adresse</p>
+                <p class="contact-text text">126 avenue de la Moune<br>14118 Caen</p>
+            </div>
+            <div class="contact-container-item">
+                <p class="contact-subtitle text">Téléphone</p>
+                <p class="contact-text text">02 61 53 00 35</p>
+            </div>
+            <div class="contact-container-item">
+                <p class="contact-subtitle text">Horaires d’ouverture</p>
+                <p class="contact-text text">Lun-ven : 9h - 19h<br>Sam: 9h-12h</p>
+            </div>
+        </div>
+        <div class="form-container">
+            <p class="form-title">Vous avez une question?</p>
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {{ form_start(form,  {'attr': {'class': 'form contact-form'}}) }}
+                {{ form_widget(form) }}
+                <input type="submit" class="button form-button" value="Envoyer" />
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
