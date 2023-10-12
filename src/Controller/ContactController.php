@@ -19,7 +19,7 @@ class ContactController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/')]
+    #[Route('/contact')]
     public function contact(Request $request) : Response
     {
         $contact = new Contacts();
