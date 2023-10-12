@@ -1,0 +1,61 @@
+/* Style des coordonnées */
+.contact-container, .form-container {
+    margin-bottom: 40px;
+}
+
+.contact-subtitle {
+    margin-left: 10%;
+}
+
+#contacts_email {
+    border-radius: 50px;
+}
+
+#contacts_message {
+    border-radius: 40px;
+}
+
+.contact-text {
+    margin-left: 15%;
+}
+
+.contact-subtitle {
+    font-weight: bold;
+}
+
+/* Style du formulaire*/
+.form-title {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 40px;
+    text-align: center;
+}
+
+form {
+    max-width: 70%;
+    margin-top: 4vw;
+}
+
+input, textarea, form {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+}
+
+.form-button {
+    margin-top: 30px;
+}
+
+@media screen and (min-width:700px) {
+    form {
+        max-width: 50%;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    form {
+        max-width: 30%;
+    }
+}
