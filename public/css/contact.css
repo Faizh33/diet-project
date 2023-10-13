@@ -7,14 +7,6 @@
     margin-left: 10%;
 }
 
-#contacts_email {
-    border-radius: 50px;
-}
-
-#contacts_message {
-    border-radius: 40px;
-}
-
 .contact-text {
     margin-left: 15%;
 }
@@ -46,6 +38,14 @@ input[type="text"], textarea {
 
 .form-button {
     margin-top: 30px;
+}
+
+#contacts_email {
+    border-radius: 50px;
+}
+
+#contacts_message {
+    border-radius: 40px;
 }
 
 @media screen and (min-width:700px) {
