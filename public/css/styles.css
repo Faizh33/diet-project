@@ -110,7 +110,7 @@
 .button-link {
     color: #0C0920;
     font-family: 'Reenie Beanie', cursive;
-    font-size: 30px;
+    font-size: 40px;
 }
 
 .button-link:hover {
@@ -139,6 +139,7 @@
   .label, .box-title {
     color: white;
     font-weight: bold;
+    font-family: 'Noto Sans', sans-serif;
   }
   
   input[type="text"], textarea {
@@ -150,6 +151,7 @@
   .form-button {
     margin: auto;
     font-family: 'Reenie Beanie', cursive;
+    font-size: 30px;
   }
 
 /* Police des textes */
