@@ -35,10 +35,18 @@
                     {{ flashMessage }}
                 </div>
             {% endfor %}
-            {{ form_start(form,  {'attr': {'class': 'form contact-form'}}) }}
-                {{ form_widget(form) }}
-                <input type="submit" class="button form-button" value="Envoyer" />
-            {{ form_end(form) }}
+{{ form_start(form, {'attr': {'class': 'form contact-form'}}) }}
+    {% if app.user %}
+        {{ form_row(form.name, {'value': ' ' ~ app.user.getLastName ~ ' ' ~ app.user.getFirstName}) }}
+        {{ form_row(form.email, {'value': app.user.getEmail}) }}
+    {% else %}
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+    {% endif %}
+    {{ form_row(form.message) }}
+    
+    <input type="submit" class="button form-button" value="Envoyer" />
+{{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
