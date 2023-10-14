@@ -4,3 +4,34 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+homepage:
+    path: /
+    controller: App\Controller\HomeController::home
+
+recipes:
+    path: /recettes
+    controller: App\Controller\RecipesController::recipes
+
+recipes-description:
+    path: /recettes/{id}
+    controller: App\Controller\RecipesDescriptionController::details
+
+contact:
+    path: /contact
+    controller: App\Controller\ContactController::contact
+
+login:
+    path: /connexion
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /deconnexion
+    controller: App\Controller\SecurityController::logout
+
+private-policy: 
+    path: /politique-de-confidentialite
+    controller: App\Controller\PrivatePolicyController::index
+
+legal-mentions:
+    path: /mentions-legales
+    controller: App\Controller\LegalMentionsController::index
