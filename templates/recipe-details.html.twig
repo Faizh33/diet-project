@@ -45,15 +45,23 @@
             </div>
             <p class="text-title text">Recette adaptée pour les régimes</p>
             <ul>
-                {% for diet in recipe.getDiets() %}
-                    <li class="text">{{ diet.name }}</li>
-                {% endfor %}
+                {% if recipe.getDiets()|length > 0 %}
+                    {% for diet in recipe.getDiets() %}
+                        <li class="text">{{ diet.name }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li class="text">Aucun</li>
+                {% endif %}
             </ul>
             <p class="text-title text">Liste des allergènes</p>
             <ul>
-                {% for allergen in recipe.getAllergens() %}
-                    <li class="text">{{ allergen.name }}</li>
-                {% endfor %}
+                {% if recipe.getAllergens()|length > 0 %}
+                    {% for allergen in recipe.getAllergens() %}
+                        <li class="text">{{ allergen.name }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li class="text">Aucun</li>
+                {% endif %}
             </ul>
         </div>
     </div>
