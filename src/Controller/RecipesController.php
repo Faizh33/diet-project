@@ -21,12 +21,16 @@ class RecipesController extends AbstractController
 #[Route('/recettes')]
     public function recipes(Request $request, PaginatorInterface $paginator) : Response
     {
+        $user = $this->getUser();
+
         $recipes= $this->recipesRepository->findAll();
+
+        $itemsPerPage = $user && $this->isGranted('ROLE_ADMIN') ? 0 : 6;
 
         $pagination = $paginator->paginate(
             $recipes,
             $request->query->getInt('page', 1),
-            6
+            $itemsPerPage
         );
 
 
