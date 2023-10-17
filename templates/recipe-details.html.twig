@@ -67,7 +67,7 @@
     </div>
     <h2 class="title">Vos avis</h2>
     <div class="row">
-        {% for review in reviews %}
+        {% for review in recipe.reviews %}
             <div class="col-lg-4 col-md-6 col-12 review-item">
                 <div class="review-container">
                     <div class="rate">
@@ -85,12 +85,13 @@
             </div>
         {% endfor %}
     </div>
-    <div class="review-container">
+    <div class="form-review-container" style="margin-bottom:50px;">
         {% if app.user is not null %}
-        {% set placeholderText = 'Bonjour ' ~ app.user.firstName ~ ' ' ~ app.user.lastName %}
 
         {{ form_start(form, {'attr': {'id':'review-form', 'class': 'form review-form'}}) }}
-        {{ form_widget(form.name, {'attr': {'id': 'name', 'name': 'name', 'required': 'required', 'placeholder' : '{{ placeholderText }}'}}) }}
+        {{ form_widget(form.recipes, {'value': recipe.id}) }}
+        {{ form_widget(form.users, {'value': user.id}) }}
+        {{ form_widget(form.name, {'attr': {'id': 'name', 'name': 'name', 'value': ' ' ~ app.user.getLastName ~ ' ' ~ app.user.getFirstName, 'required': 'required'}}) }}
         {{ form_label(form.comment, 'Donnez-moi votre avis', {'label_attr': {'class': 'label text'}}) }}
         {{ form_widget(form.comment, {'attr': {'id': 'comment', 'rows': '5', 'cols': '33'}}) }}
 
