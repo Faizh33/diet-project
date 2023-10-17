@@ -6,6 +6,8 @@ use App\Entity\Reviews;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ReviewsType extends AbstractType
 {
@@ -14,6 +16,14 @@ class ReviewsType extends AbstractType
         $builder
             ->add('name')
             ->add('comment')
+            ->add('recipes', HiddenType::class, [
+                'data_class' => null,
+                'mapped' => false,
+            ])
+            ->add('users', HiddenType::class, [
+                'data_class' => null,
+                'mapped' => false,
+            ]);
         ;
     }
 
