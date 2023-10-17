@@ -93,7 +93,7 @@
         {{ form_widget(form.users, {'value': user.id}) }}
         {{ form_widget(form.name, {'attr': {'id': 'name', 'name': 'name', 'value': ' ' ~ app.user.getLastName ~ ' ' ~ app.user.getFirstName, 'required': 'required'}}) }}
         {{ form_label(form.comment, 'Donnez-moi votre avis', {'label_attr': {'class': 'label text'}}) }}
-        {{ form_widget(form.comment, {'attr': {'id': 'comment', 'rows': '5', 'cols': '33'}}) }}
+        {{ form_widget(form.comment, {'attr': {'id': 'comment', 'rows': '10', 'cols': '33'}}) }}
 
         <p class="label">Note</p>
         <div class="rating-form-container"  id="star-rating">
