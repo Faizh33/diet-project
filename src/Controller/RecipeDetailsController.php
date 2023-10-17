@@ -31,6 +31,7 @@ class RecipeDetailsController extends AbstractController
         $reviews= $this->reviewsRepository->findAll();
         $recipesRepository = $this->em->getRepository(Recipes::class);
         $recipe = $recipesRepository->find($id);
+        $user = $this->getUser();
 
         $stepsRepository = $this->em->getRepository(Steps::class);
         $sortedSteps = $stepsRepository->findBy(
@@ -39,6 +40,10 @@ class RecipeDetailsController extends AbstractController
         );
 
         $review = new Reviews();
+        $review->setRecipes($recipe);
+        $review->setUsers($user);
+
+
         $form = $this->createForm(ReviewsType::class, $review);
 
         $form->handleRequest($request);
@@ -51,17 +56,18 @@ class RecipeDetailsController extends AbstractController
 
             $this->addFlash('success', 'Votre avis a été posté, il sera soumis à validation par nos équipes. Bonne journée :)');
 
-            return $this->redirectToRoute('recettes/{id}');
+            return $this->redirectToRoute('recipes-description', ['id' => $id]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', 'Il y a des erreurs dans le formulaire. Veuillez le corriger.');
         }
 
 
         return $this->render('recipe-details.html.twig', [
-            'recipe' => $recipe,
             'sortedSteps' => $sortedSteps,
-            'reviews' => $reviews,
             'form' => $form,
+            'reviews' => $reviews,
+            'recipe' => $recipe,
+            'user' => $user,
         ]);
     }
 }
