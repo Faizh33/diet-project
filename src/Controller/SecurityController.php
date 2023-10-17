@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
 
         // Check if there's a login error and set a flash message if needed
         if ($error) {
-            $this->addFlash('error', 'Invalid credentials. Please try again.');
+            $this->addFlash('error', 'Identifiants invalides. Merci de réessayer.');
         }
 
         // last username entered by the user
