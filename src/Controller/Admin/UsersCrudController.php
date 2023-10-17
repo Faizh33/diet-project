@@ -14,7 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType; // Ajout du namespace
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UsersCrudController extends AbstractCrudController
 {
