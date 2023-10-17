@@ -157,6 +157,7 @@
 /* Police des textes */
 .text {
     font-family:Noto Sans, sans-serif;
+    color: #0C0920;
 }
 
 /* Correction de style injecté par bootstrap */
