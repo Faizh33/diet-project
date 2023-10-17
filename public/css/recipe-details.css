@@ -81,13 +81,13 @@ input[type="text"], textarea {
 
 @media screen and (min-width: 700px) {
     .review-form {
-        max-width: 50%;
+        max-width: 60%;
     }
 }
 
 @media screen and (min-width: 1200px) {
     .review-form {
-        max-width: 30%;
+        max-width: 40%;
     }
 }
 
