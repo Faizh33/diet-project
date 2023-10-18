@@ -160,6 +160,14 @@
     color: #0C0920;
 }
 
+/*Style des messages de succès/d'erreur */
+.alert {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    margin-top: 1vw;
+}
+
 /* Correction de style injecté par bootstrap */
 .row {
     margin-right: 0 !important;
