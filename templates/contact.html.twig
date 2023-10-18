@@ -35,6 +35,11 @@
                     {{ flashMessage }}
                 </div>
             {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="alert alert-error">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
             {{ form_start(form, {'attr': {'class': 'form contact-form'}}) }}
                 {% if app.user %}
                     {{ form_row(form.name, {'value': ' ' ~ app.user.getLastName ~ ' ' ~ app.user.getFirstName}) }}
