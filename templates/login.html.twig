@@ -10,9 +10,11 @@
 {% block body %}
 <h1 class="title">Se connecter</h1>
 <form method="post" class="form">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     {% if app.user %}
         <div class="mb-3">
@@ -33,9 +35,4 @@
         Se connecter
     </button>
 </form>
-{% for message in app.flashes('error') %}
-    <div class="alert alert-danger">
-        {{ message }}
-    </div>
-{% endfor %}
 {% endblock %}

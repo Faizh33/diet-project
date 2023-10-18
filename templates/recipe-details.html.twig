@@ -89,6 +89,16 @@
         {% if app.user is not null %}
 
         {{ form_start(form, {'attr': {'id':'review-form', 'class': 'form review-form'}}) }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
         {{ form_widget(form.recipes, {'value': recipe.id}) }}
         {{ form_widget(form.users, {'value': user.id}) }}
         {{ form_widget(form.name, {'attr': {'id': 'name', 'name': 'name', 'value': ' ' ~ app.user.getLastName ~ ' ' ~ app.user.getFirstName, 'required': 'required'}}) }}
