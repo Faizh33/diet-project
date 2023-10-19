@@ -49,6 +49,13 @@ class RecipeDetailsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $selectedRate = $request->request->get('rating');
+
+            if ($selectedRate === null) {
+                $this->addFlash('error', 'Veuillez sélectionner une note en cliquant sur les étoiles');
+                $this->addFlash('error_top', 'Veuillez sélectionner une note en cliquant sur les étoiles');
+                return $this->redirectToRoute('recipes-description', ['id' => $id]);
+            }
+
             $review->setRate($selectedRate);
 
             $this->em->persist($review);
