@@ -5,14 +5,15 @@ namespace App\Controller\Admin;
 use App\Entity\Recipes;
 use App\Form\StepsType;
 use App\Form\IngredientsType;
+use Symfony\Component\Validator\Constraints\File;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use Symfony\Component\Validator\Constraints\File;
 
 class RecipesCrudController extends AbstractCrudController
 {
@@ -24,6 +25,8 @@ class RecipesCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            BooleanField::new('visibility', 'Visibilité')
+            ->setHelp('Invisible pour les utilisateurs non connectés si coché'),
             TextField::new('title')
             ->setLabel('Nom de la recette'),
             ImageField::new('pictureName')
@@ -80,7 +83,7 @@ class RecipesCrudController extends AbstractCrudController
                 foreach ($diets as $diet) {
                     $dietNames[] = $diet->getName();
                 }
-                return implode(', ', $dietNames);
+                return implode(', <br>', $dietNames);
             }),
             AssociationField::new('allergens')
             ->setLabel('Allergènes présents')
@@ -94,7 +97,7 @@ class RecipesCrudController extends AbstractCrudController
                 foreach ($allergens as $allergen) {
                     $allergenNames[] = $allergen->getName();
                 }
-                return implode(', ', $allergenNames);
+                return implode(', <br>', $allergenNames);
             }),
             CollectionField::new('steps')
             ->setEntryType(StepsType::class)
