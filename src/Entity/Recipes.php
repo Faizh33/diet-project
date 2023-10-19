@@ -34,6 +34,9 @@ class Recipes
     #[ORM\Column(type: Types::TEXT, length: 255)]
     private ?string $pictureName;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $visibility;
+
     #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Ingredients::class, cascade: ['persist'])]
     private Collection $ingredients;
 
@@ -140,6 +143,19 @@ class Recipes
 
         return $this;
     }
+
+    public function getVisibility(): ?bool
+    {
+        return $this->visibility;
+    }
+    
+    public function setVisibility(bool $visibility): static
+    {
+        $this->visibility = $visibility;
+    
+        return $this;
+    }    
+
 
     /**
      * @return Collection<int, Ingredients>
