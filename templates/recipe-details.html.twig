@@ -9,6 +9,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/reviews.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -94,16 +95,8 @@
     </div>
     <div class="form-review-container" style="margin-bottom:50px;">
         {% if app.user is not null %}
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            {% for message in app.flashes('error') %}
-                <div class="alert alert-danger">
-                    {{ message }}
-                </div>
-            {% endfor %}
+            <div class="alert success-message" style="display:none;"></div>
+            <div class="alert error-message" style="display:none;"></div>
             {{ form_start(form, {'attr': {'id':'review-form', 'class': 'form review-form'}}) }}
             {{ form_widget(form.recipes, {'value': recipe.id}) }}
             {{ form_widget(form.users, {'value': user.id}) }}
@@ -126,6 +119,7 @@
                     <label for="star5"></label>
                 </div>
             </div>
+            <input type="hidden" id="recipe-id" value="{{ recipe.id }}">
             <input type="submit" class="button form-button" value="Envoyer">
             {{ form_end(form) }}
         {% endif %}
