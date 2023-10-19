@@ -13,6 +13,13 @@
 
 {% block body %}
     <h1 class="title">{{ recipe.title }}</h1>
+    {% block error_top %}
+        {% for message in app.flashes('error_top') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endblock %}
     <div class="container">
         <div class="recipe-container" style="display: inline-block; width: 80%;">
             <div class="image-container">
@@ -87,42 +94,40 @@
     </div>
     <div class="form-review-container" style="margin-bottom:50px;">
         {% if app.user is not null %}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {{ form_start(form, {'attr': {'id':'review-form', 'class': 'form review-form'}}) }}
+            {{ form_widget(form.recipes, {'value': recipe.id}) }}
+            {{ form_widget(form.users, {'value': user.id}) }}
+            {{ form_widget(form.name, {'attr': {'id': 'name', 'name': 'name', 'value': ' ' ~ app.user.getLastName ~ ' ' ~ app.user.getFirstName, 'required': 'required'}}) }}
+            {{ form_label(form.comment, 'Donnez-moi votre avis', {'label_attr': {'class': 'label'}}) }}
+            {{ form_widget(form.comment, {'attr': {'id': 'comment', 'rows': '10', 'cols': '33', 'maxlength':'350'}}) }}
 
-        {{ form_start(form, {'attr': {'id':'review-form', 'class': 'form review-form'}}) }}
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
+            <p class="label">Note</p>
+            <div class="rating-form-container"  id="star-rating">
+                <div class="rating">
+                    <input type="radio" id="star1" name="rating" value="5" />
+                    <label for="star1"></label>
+                    <input type="radio" id="star2" name="rating" value="4" />
+                    <label for="star2"></label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3"></label>
+                    <input type="radio" id="star4" name="rating" value="2" />
+                    <label for="star4"></label>
+                    <input type="radio" id="star5" name="rating" value="1" />
+                    <label for="star5"></label>
+                </div>
             </div>
-        {% endfor %}
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-error">
-                {{ message }}
-            </div>
-        {% endfor %}
-        {{ form_widget(form.recipes, {'value': recipe.id}) }}
-        {{ form_widget(form.users, {'value': user.id}) }}
-        {{ form_widget(form.name, {'attr': {'id': 'name', 'name': 'name', 'value': ' ' ~ app.user.getLastName ~ ' ' ~ app.user.getFirstName, 'required': 'required'}}) }}
-        {{ form_label(form.comment, 'Donnez-moi votre avis', {'label_attr': {'class': 'label text'}}) }}
-        {{ form_widget(form.comment, {'attr': {'id': 'comment', 'rows': '10', 'cols': '33', 'maxlength':'350'}}) }}
-
-        <p class="label">Note</p>
-        <div class="rating-form-container"  id="star-rating">
-            <div class="rating">
-                <input type="radio" id="star1" name="rating" value="5" />
-                <label for="star1"></label>
-                <input type="radio" id="star2" name="rating" value="4" />
-                <label for="star2"></label>
-                <input type="radio" id="star3" name="rating" value="3" />
-                <label for="star3"></label>
-                <input type="radio" id="star4" name="rating" value="2" />
-                <label for="star4"></label>
-                <input type="radio" id="star5" name="rating" value="1" />
-                <label for="star5"></label>
-            </div>
-        </div>
-        <input type="submit" class="button form-button" value="Envoyer">
-        {{ form_end(form) }}
+            <input type="submit" class="button form-button" value="Envoyer">
+            {{ form_end(form) }}
         {% endif %}
-        <div class="error-message text" style="display: none;">Veuillez sélectionner une note.</div>
     </div>
 {% endblock %}
