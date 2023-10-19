@@ -162,10 +162,16 @@
 
 /*Style des messages de succès/d'erreur */
 .alert {
-    width: 50%;
+    width: 80%;
     margin: auto;
     text-align: center;
     margin-top: 1vw;
+}
+
+@media screen and (min-width: 792px) {
+    .alert {
+        width: 50%;
+    }
 }
 
 /* Correction de style injecté par bootstrap */
