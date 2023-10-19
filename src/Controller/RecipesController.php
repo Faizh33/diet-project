@@ -52,12 +52,10 @@ class RecipesController extends AbstractController
             }
         }
     
-        $itemsPerPage = $user && $this->isGranted('ROLE_ADMIN') ? 0 : 6;
-    
         $pagination = $paginator->paginate(
             $filteredRecipes,
             $request->query->getInt('page', 1),
-            $itemsPerPage
+            6
         );
     
         return $this->render('recipes.html.twig', [
