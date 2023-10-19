@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RecipeDetailsController extends AbstractController
 {
@@ -28,53 +29,45 @@ class RecipeDetailsController extends AbstractController
     #[Route('/recettes/{id}')]
     public function index(Request $request, $id): Response
     {
-        $reviews= $this->reviewsRepository->findAll();
+        $reviews = $this->reviewsRepository->findAll();
         $recipesRepository = $this->em->getRepository(Recipes::class);
         $recipe = $recipesRepository->find($id);
         $user = $this->getUser();
-
+    
         $stepsRepository = $this->em->getRepository(Steps::class);
         $sortedSteps = $stepsRepository->findBy(
             ['recipes' => $recipe],
             ['orderNumber' => 'ASC']
         );
-
+    
         $review = new Reviews();
         $review->setRecipes($recipe);
         $review->setUsers($user);
-
-
+    
         $form = $this->createForm(ReviewsType::class, $review);
-
+    
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->isMethod('POST') && $form->isSubmitted() && $form->isValid()) {
             $selectedRate = $request->request->get('rating');
-
+    
             if ($selectedRate === null) {
-                $this->addFlash('error', 'Veuillez sélectionner une note en cliquant sur les étoiles');
-                $this->addFlash('error_top', 'Veuillez sélectionner une note en cliquant sur les étoiles');
-                return $this->redirectToRoute('recipes-description', ['id' => $id]);
+                return new JsonResponse(['success' => false, 'message' => 'Veuillez sélectionner une note en cliquant sur les étoiles']);
             }
-
+    
             $review->setRate($selectedRate);
-
+    
             $this->em->persist($review);
             $this->em->flush();
-
-            $this->addFlash('success', 'Votre avis a été posté, il sera soumis à validation par nos équipes. Bonne journée :)');
-
-            return $this->redirectToRoute('recipes-description', ['id' => $id]);
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'Il y a des erreurs dans le formulaire. Veuillez le corriger.');
+    
+            return new JsonResponse(['success' => true, 'message' => 'Votre avis a été posté. Bonne journée :)']);
         }
-
-
+    
         return $this->render('recipe-details.html.twig', [
             'sortedSteps' => $sortedSteps,
-            'form' => $form,
+            'form' => $form->createView(),
             'reviews' => $reviews,
             'recipe' => $recipe,
             'user' => $user,
         ]);
-    }
+    }    
 }
