@@ -195,26 +195,31 @@
 
 /* Style des boutons */
 .button {
-    background: #F3F3F7;
-    width: 50%;
-    margin: auto;
+    background-color: #DC9A7D;
+    padding: 5px 20px;
     border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+    display: inline-block;
+    border: none;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #c7856d;
 }
 
 .button-link {
-    color: #0C0920;
+    color: #ffffff;
     font-family: 'Reenie Beanie', cursive;
-    font-size: 40px;
+    font-size: 30px;
+    text-decoration: none;
 }
 
 .button-link:hover {
+    color: #ffffff;
     text-decoration: none;
-    color: #0C0920;
 }
+
 
 /* Styles des titres */
 .title {
