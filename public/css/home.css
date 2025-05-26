@@ -13,12 +13,13 @@
     font-family: 'Reenie Beanie', cursive;
     font-size: 75px;
     text-align: center;
-    margin: 40px;
+    color: #609A7D;
+    padding: 30px;
 }
 
 /* style de la partie A propos */
 .about-us-container {
-    width: 80%;
+    width: 100%;
     margin: auto;
     background: #609A7D;
     padding: 10px;
