@@ -25,6 +25,7 @@
         <!-- Navbar version mobile -->
         <nav class="navbar navbar-expand-md d-md-none">  
             <img src="{{ asset('pictures/logo.png') }}" alt="Logo" class="logo" />
+            <h1 class="navbar-title">Sandrine Coupart<br>Diététicienne Nutritionniste</h1>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNavbarContent">
                 <img src="{{ asset('svg/list.svg') }}" alt="List" class="navbar-list">
             </button>
@@ -60,33 +61,39 @@
 
         <!-- Navbar version desktop -->
         <nav class="navbar navbar-expand-md d-none d-md-flex">
-            <img src="{{ asset('pictures/logo.png') }}" alt="Logo" class="logo" />
-            <ul class="navbar-nav navbar-desktop mr-auto">
-                <li class="nav-item nav-item-desktop">
-                    <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
-                </li>
-                <li class="nav-item nav-item-desktop">
-                    <a class="nav-link" href="{{ path('recipes') }}">Recettes</a>
-                </li>
-                <li class="nav-item nav-item-desktop">
-                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
-                </li>
-                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="navbar-left">
+                <img src="{{ asset('pictures/logo.png') }}" alt="Logo" class="logo" />
+            </div>
+
+            <div class="navbar-center">
+                <h1 class="navbar-title">Sandrine Coupart<br>Diététicienne Nutritionniste</h1>
+                <ul class="navbar-nav navbar-desktop">
                     <li class="nav-item nav-item-desktop">
-                        <a class="nav-link" href="{{ path('login') }}">Connexion</a>
+                        <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
                     </li>
-                {% endif %}
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="{{ path('recipes') }}">Recettes</a>
+                    </li>
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                    </li>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item nav-item-desktop">
+                            <a class="nav-link" href="{{ path('login') }}">Connexion</a>
+                        </li>
+                    {% endif %}
                     {% if app.user and 'ROLE_USER' in app.user.roles %}
                         <li class="nav-item nav-item-desktop">
                             <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                         </li>
                     {% endif %}
-                {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
-                    <li class="nav-item nav-item-desktop">
-                        <a class="nav-link" href="{{ path('admin') }}">Administrateur</a>
-                    </li>
-                {% endif %}
-            </ul>
+                    {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                        <li class="nav-item nav-item-desktop">
+                            <a class="nav-link" href="{{ path('admin') }}">Administrateur</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </nav>
 
         <!-- Contenu principal -->
