@@ -2,7 +2,7 @@
 @import url('https://fonts.cdnfonts.com/css/baloo-bhaina');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Reenie+Beanie&display=swap');
 
-.navbar-toggler, .nav-link, .footer-link {
+.nav-link, .footer-link {
     color: #fff;
     font-weight: 500;
     text-decoration: none;
@@ -87,10 +87,30 @@
     color: white;
 }
 
+/* Style général du bouton */
+.navbar-toggler.custom-toggler {
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+}
+
+/* Style de l'image dans le bouton */
+.navbar-list {
+    width: 50px;
+    height: 50px;
+}
+
 /* Responsive mobile */
 @media screen and (max-width: 767px) {
     .navbar {
-        max-height: 90vh;
+        max-height: 80vh;
         padding-top: 150px;
     }
 
@@ -106,13 +126,13 @@
     }
 
     .logo {
-        width: 100px;
+        width: 150px;
     }
 
     .navbar-nav .nav-item {
         background-color: rgba(12, 9, 32, 0.4);
         border-radius: 20px;
-        padding: 10px 20px;
+        padding: 5px 10px;
         margin: 10px;
         font-size: 16px;
         color: white;
