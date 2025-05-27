@@ -27,14 +27,9 @@ class Markup implements \Countable, \JsonSerializable, \Stringable
         $this->charset = $charset;
     }
 
-    public function __toString(): string
+    public function __toString()
     {
         return $this->content;
-    }
-
-    public function getCharset(): string
-    {
-        return $this->charset;
     }
 
     /**

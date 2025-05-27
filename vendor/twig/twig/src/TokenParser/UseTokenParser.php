@@ -12,10 +12,8 @@
 namespace Twig\TokenParser;
 
 use Twig\Error\SyntaxError;
-use Twig\Node\EmptyNode;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Node;
-use Twig\Node\Nodes;
 use Twig\Token;
 
 /**
@@ -36,7 +34,7 @@ final class UseTokenParser extends AbstractTokenParser
 {
     public function parse(Token $token): Node
     {
-        $template = $this->parser->parseExpression();
+        $template = $this->parser->getExpressionParser()->parseExpression();
         $stream = $this->parser->getStream();
 
         if (!$template instanceof ConstantExpression) {
@@ -63,9 +61,9 @@ final class UseTokenParser extends AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        $this->parser->addTrait(new Nodes(['template' => $template, 'targets' => new Nodes($targets)]));
+        $this->parser->addTrait(new Node(['template' => $template, 'targets' => new Node($targets)]));
 
-        return new EmptyNode($token->getLine());
+        return new Node([], [], $token->getLine());
     }
 
     public function getTag(): string

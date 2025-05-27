@@ -15,7 +15,7 @@ namespace Twig\Node;
 use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\Expression\Variable\AssignContextVariable;
+use Twig\Node\Expression\AssignNameExpression;
 
 /**
  * Represents a for node.
@@ -27,19 +27,9 @@ class ForNode extends Node
 {
     private $loop;
 
-    public function __construct(AssignContextVariable $keyTarget, AssignContextVariable $valueTarget, AbstractExpression $seq, ?Node $ifexpr, Node $body, ?Node $else, int $lineno)
+    public function __construct(AssignNameExpression $keyTarget, AssignNameExpression $valueTarget, AbstractExpression $seq, ?Node $ifexpr, Node $body, ?Node $else, int $lineno)
     {
-        $body = new Nodes([$body, $this->loop = new ForLoopNode($lineno)]);
-
-        if (null !== $ifexpr) {
-            trigger_deprecation('twig/twig', '3.19', \sprintf('Passing not-null to the "ifexpr" argument of the "%s" constructor is deprecated.', static::class));
-        }
-
-        if (null !== $else && !$else instanceof ForElseNode) {
-            trigger_deprecation('twig/twig', '3.19', \sprintf('Not passing an instance of "%s" to the "else" argument of the "%s" constructor is deprecated.', ForElseNode::class, static::class));
-
-            $else = new ForElseNode($else, $else->getTemplateLine());
-        }
+        $body = new Node([$body, $this->loop = new ForLoopNode($lineno)]);
 
         $nodes = ['key_target' => $keyTarget, 'value_target' => $valueTarget, 'seq' => $seq, 'body' => $body];
         if (null !== $else) {
@@ -99,7 +89,13 @@ class ForNode extends Node
         ;
 
         if ($this->hasNode('else')) {
-            $compiler->subcompile($this->getNode('else'));
+            $compiler
+                ->write("if (!\$context['_iterated']) {\n")
+                ->indent()
+                ->subcompile($this->getNode('else'))
+                ->outdent()
+                ->write("}\n")
+            ;
         }
 
         $compiler->write("\$_parent = \$context['_parent'];\n");

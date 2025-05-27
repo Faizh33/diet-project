@@ -33,22 +33,18 @@ class EmbedNode extends IncludeNode
         $this->setAttribute('index', $index);
     }
 
-    protected function addGetTemplate(Compiler $compiler, string $template = ''): void
+    protected function addGetTemplate(Compiler $compiler): void
     {
         $compiler
-            ->raw('$this->load(')
+            ->write('$this->loadTemplate(')
             ->string($this->getAttribute('name'))
+            ->raw(', ')
+            ->repr($this->getTemplateName())
             ->raw(', ')
             ->repr($this->getTemplateLine())
             ->raw(', ')
             ->string($this->getAttribute('index'))
             ->raw(')')
         ;
-        if ($this->getAttribute('ignore_missing')) {
-            $compiler
-                ->raw(";\n")
-                ->write(\sprintf("\$%s->getParent(\$context);\n", $template))
-            ;
-        }
     }
 }

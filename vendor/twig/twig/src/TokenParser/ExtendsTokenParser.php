@@ -13,7 +13,6 @@
 namespace Twig\TokenParser;
 
 use Twig\Error\SyntaxError;
-use Twig\Node\EmptyNode;
 use Twig\Node\Node;
 use Twig\Token;
 
@@ -36,11 +35,11 @@ final class ExtendsTokenParser extends AbstractTokenParser
             throw new SyntaxError('Cannot use "extend" in a macro.', $token->getLine(), $stream->getSourceContext());
         }
 
-        $this->parser->setParent($this->parser->parseExpression());
+        $this->parser->setParent($this->parser->getExpressionParser()->parseExpression());
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new EmptyNode($token->getLine());
+        return new Node([], [], $token->getLine());
     }
 
     public function getTag(): string
