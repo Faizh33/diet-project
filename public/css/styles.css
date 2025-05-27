@@ -23,6 +23,15 @@
     margin-bottom: 50px;
 }
 
+@keyframes zoom {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+
 /* Image d’arrière-plan animée */
 .navbar::before {
     content: "";
@@ -31,6 +40,7 @@
     background: url('../pictures/header.jpg') no-repeat center center;
     background-size: cover;
     z-index: -1;
+    transform: scale(1);
     animation: zoom 8s ease-out forwards;
     opacity: 0.8;
 }
