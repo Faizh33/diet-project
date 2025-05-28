@@ -1,4 +1,4 @@
-/* Style photo et text d'accueil */
+/* Style photo et texte d'accueil */
 .picture-container {
     margin-top: 20px;
     display: flex;
@@ -15,6 +15,26 @@
     text-align: center;
     color: #609A7D;
     padding: 30px;
+}
+
+.slide-in-text {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.slide-in-text.visible {
+    animation: slideIn 1.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* style de la partie A propos */
@@ -39,7 +59,6 @@
     height: 100%;
     object-fit: cover;
     transition: transform 8s ease-out;
-    /* animation ou zoom déclenché autrement */
 }
 
 /* animation zoom de l'image sans faire grossir le container */
@@ -53,7 +72,7 @@
 }
 
 /* appliquer l'animation */
-.diet-picture.zooming {
+.diet-picture.zooming.visible {
     animation: zoom 8s ease-out forwards;
 }
 
