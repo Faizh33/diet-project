@@ -25,6 +25,10 @@
     padding-bottom: 40px;
 }
 
+.recipe-title:hover {
+    color: #609A7D;
+}
+
 .recipe-link:hover {
     text-decoration: none;
 }
