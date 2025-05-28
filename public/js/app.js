@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const slideInTexts = document.querySelectorAll(".slide-in-text");
     const zooms = document.querySelectorAll(".zooming");
 
     const observer = new IntersectionObserver((entries, observer) => {
@@ -10,5 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, { threshold: 0.2 });
 
+    slideInTexts.forEach(text => observer.observe(text));
     zooms.forEach(zoom => observer.observe(zoom));
 });
